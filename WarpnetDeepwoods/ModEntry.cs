@@ -33,9 +33,7 @@ namespace WarpnetDeepwoods
         private void WarpToDeepWoods(string s)
         {
             Game1.exitActiveMenu();
-            string assemblyname = typeof(DeepWoodsMod.ModEntry).Assembly.FullName;
-            Type type = Type.GetType("DeepWoodsMod.WoodsObeliskMenu, "+assemblyname);
-            Game1.activeClickableMenu = (IClickableMenu)Activator.CreateInstance(type);
+            Game1.activeClickableMenu = new DeepWoodsMod.WoodsObeliskMenu();
         }
         private bool CanWarpToDeepWoods(string s)
         {
