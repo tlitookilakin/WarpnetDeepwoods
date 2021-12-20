@@ -1,19 +1,14 @@
 ﻿using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Buildings;
-using StardewValley.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WarpnetDeepwoods
 {
     public class ModEntry : Mod
     {
-        internal static WarpnetDeepwoods.Config Config;
+        internal static Config Config;
         private static IWarpNetAPI WarpApi = null;
         public override void Entry(IModHelper helper)
         {
@@ -24,18 +19,18 @@ namespace WarpnetDeepwoods
         {
             Config.RegisterModConfigMenu(Helper, ModManifest);
             WarpApi = Helper.ModRegistry.GetApi<IWarpNetAPI>("tlitookilakin.warpnetwork");
-            WarpApi.AddCustomDestinationHandler("deepwoods", WarpToDeepWoods, CanWarpToDeepWoods, GetWarpLabel);
+            WarpApi.AddCustomDestinationHandler("deepwoods", CanWarpToDeepWoods, GetWarpLabel, () => "Deepwoods", WarpToDeepWoods);
         }
-        private string GetWarpLabel(string s)
+        private string GetWarpLabel()
         {
             return Helper.Translation.Get("ui-label");
         }
-        private void WarpToDeepWoods(string s)
+        private static void WarpToDeepWoods()
         {
             Game1.exitActiveMenu();
             Game1.activeClickableMenu = new DeepWoodsMod.WoodsObeliskMenu();
         }
-        private bool CanWarpToDeepWoods(string s)
+        private static bool CanWarpToDeepWoods()
         {
             if (!Config.AfterObelisk)
             {
@@ -54,6 +49,15 @@ namespace WarpnetDeepwoods
                 }
             }
             return false;
+        }
+
+        public bool CanLoad<T>(IAssetInfo asset)
+        {
+            return asset.AssetNameEquals("Data/WarpNetwork/Icons/Deepwoods");
+        }
+        public T Load<T>(IAssetData asset)
+        {
+            return Helper.Content.Load<T>(PathUtilities.NormalizePath("assets/icon.png"));
         }
     }
 }

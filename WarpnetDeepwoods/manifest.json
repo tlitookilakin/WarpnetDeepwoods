@@ -6,7 +6,7 @@
   "UniqueID": "tlitookilakin.deepwoodswarpnet",
   "EntryDll": "WarpnetDeepwoods.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [],
+  "UpdateKeys": [ "nexus:10240" ],
   "Dependencies": [
     {
       "UniqueID": "tlitookilakin.warpnetwork"
