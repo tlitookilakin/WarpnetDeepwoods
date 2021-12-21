@@ -6,7 +6,7 @@ using StardewValley.Buildings;
 
 namespace WarpnetDeepwoods
 {
-    public class ModEntry : Mod
+    public class ModEntry : Mod, IAssetLoader
     {
         internal static Config Config;
         private static IWarpNetAPI WarpApi = null;
@@ -55,7 +55,7 @@ namespace WarpnetDeepwoods
         {
             return asset.AssetNameEquals("Data/WarpNetwork/Icons/Deepwoods");
         }
-        public T Load<T>(IAssetData asset)
+        public T Load<T>(IAssetInfo asset)
         {
             return Helper.Content.Load<T>(PathUtilities.NormalizePath("assets/icon.png"));
         }
